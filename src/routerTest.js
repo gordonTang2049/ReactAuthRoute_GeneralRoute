@@ -6,14 +6,21 @@ import {
     // as means  Router  =  BrowserRouter
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect,
+  Link
 } from "react-router-dom";
 
-import { AuthContext } from "auth/authContext";
+import { 
+  AuthContext,
+  AuthProvider 
+} from "./auth/authContext";
 
-import { LandingPage } from "publicRoute/landingPage"
-import { Profile } from "privateRoute/profile"
-import { StaffDetail } from "privateRoute/staffDetail"
+
+import {Login} from './publicRoute/login'
+import { LandingPage } from "./publicRoute/landingPage"
+import { Profile } from "./privateRoute/profile"
+import { StaffDetail } from "./privateRoute/staffDetail"
 
 
 // ROUTE would render when centain condition met
@@ -38,6 +45,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
   
   
+// When I set up a route for Redirect, it won't render  
 const RedirectFromLadningToLogin = ({component: Component, ...rest}) => {
 
     const {currentUser} = useContext(AuthContext);
@@ -58,21 +66,39 @@ const RedirectFromLadningToLogin = ({component: Component, ...rest}) => {
 
 }
 
-  
+const PrivateHeader = () => {
+  const {currentUser} = useContext(AuthContext);
+
+  return currentUser && <> 
+                                  <div style={{display:'flex', margin : 20}}>  
+
+                                  <Link to="/profile" style={{color : 'orangered ', margin : 20 }}>Profile</Link>
+
+                                  <Link to="/staffdetail" style={{color : 'orangered', margin : 20}}>StaffDetail</Link>
+
+                                  <Link to="/" style={{color : 'orangered', margin : 20}}>Landing Page</Link>
+                                  </div> 
+                                 </>
+
+
+}  
 
 
 export default function RouterTest() {
 
-  return (
-    <Router>
 
-        <Switch>
-            <PrivateRoute  path="/profile"  component={Profile} />
-            <PrivateRoute path="/staffdetail"  component={StaffDetail} />
-            <RedirectFromLadningToLogin  path="/" component={LandingPage} />
-        </Switch>
-      
-    </Router>
+  return (
+    <AuthProvider>
+      <Router>
+          <PrivateHeader />
+          <Switch>
+              <PrivateRoute exact path="/profile"  component={Profile} />
+              <PrivateRoute exact path="/staffdetail"  component={StaffDetail} />
+              <PrivateRoute exact  path="/" component={LandingPage} />
+              <Route path="/login" component={Login} />
+          </Switch>
+      </Router>
+  </AuthProvider> 
   );
 }
 

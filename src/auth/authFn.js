@@ -1,10 +1,10 @@
-import {loginDb} from './logindb'
+import {authDb} from './authDb'
 
 const auth = {
     isAuthUser : false,
     signIn : (userInput, password) => {
 
-        const userDb = loginDb()
+        const userDb = authDb()
 
         const isUserExist = (user) => { 
             return user.email === userInput 

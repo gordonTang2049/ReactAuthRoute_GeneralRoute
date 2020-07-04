@@ -1,4 +1,4 @@
-export const loginDb =  () => {
+export const authDb =  () => {
 
     return  [
     {

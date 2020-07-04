@@ -10,8 +10,7 @@ export const AuthProvider = ({ children }) => {
 
     
     const [currentUser, setCurrentUser] = useState(false)
-    
-    const userProvider = useMemo(() => ({user, setUser}), [user, setUser])
+    const userProvider = useMemo(() => ({currentUser, setCurrentUser}), [currentUser, setCurrentUser])
 
 
 

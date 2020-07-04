@@ -1,12 +1,12 @@
 import React, { 
     useContext 
 } from "react";
-
+import {AuthContext} from "../auth/authContext";
 
 
 export const Profile = () => {
 
-    const {user} = useContext(UserContext)
+    const {currentUser} = useContext(AuthContext)
     
     
 
@@ -14,7 +14,7 @@ export const Profile = () => {
     return(
         <>
         <h1>This is Landing Page</h1>
-        <h2>{JSON.stringify(user, null, 2)}</h2>
+        <h2>{currentUser && JSON.stringify(currentUser, null, 2)}</h2>
         <img src="https://media.giphy.com/media/3o6ZtliNt8e3fVnj44/giphy.gif" alt=""/>
         </>
     )
