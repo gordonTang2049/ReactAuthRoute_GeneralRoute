@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "baseUrl": "src"
+    },
+    "include": ["src"],
+    "paths": {
+        "auth": ["./auth/*"],
+        "privateRoute": ["./privateRoute/*"],
+        "publicRoute": ["./publicRoute/*"],
+        
+        
+      } 
+  }
